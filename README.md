@@ -1,10 +1,21 @@
 # job4j_dreamjob
-Features of the “Dream Job” Application
+Features of the “Cinema" Application
+
+Main application purpose - provide means to users to view, select and purchase a movie ticket in a cinema
 
 Data Models:
-- Candidates: publish their résumés.
-- Recruiters: post job vacancies.
+- Files to store a movie poster
+- Genres - movie genres (drama, action, comedy)
+- Films - names, description, year
+- Halls - a number of hall in a cinema plus number of seats
+- Film sessions
+- Users - admin, guest, cashier
+- Tickets
 
 Interaction:
-- Candidates can apply for job vacancies.
-- Recruiters can invite candidates to open positions.
+- Main web page
+- Schedule web page
+- List of movies
+- Ticket purchase page
+- Purchase result pages
+- Rerigster and Login pages
