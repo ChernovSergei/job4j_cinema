@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/headerCinema :: header"></head>
+<body>
+    <div th:replace="fragments/navigationCinema :: navigation"></div>
+    <div class="container">
+        <form class="mt-3" th:action="@{/movies/add}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label"><b>Movie Name</b></label>
+                <input type="text" class="form-control" name="name" id="name"
+                       placeholder="Movie name e.g. Home Alone">
+            </div>
+            <div class="mb-3">
+                <label for="formFile"><b>Movie Poster</b></label>
+                <input class="form-control form-control-sm w-100" type="file" id="formFile" name="file" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label"><b>Movie Description</b></label>
+                <textarea class="form-control" name="description" id="description" rows="10"
+                          placeholder="Description e.g. Drama about lonely boy forgotten at house by family"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="year" class="form-label"><b>Year</b></label>
+                <textarea class="form-control" name="year" id="year"
+                          placeholder="Issue date e.g. 1990"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="minimalAge" class="form-label"><b>Age Limit</b></label>
+                <textarea class="form-control" name="minimalAge" id="minimalAge"
+                          placeholder="child or teenage age limit e.g. 16+"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="durationInMinutes" class="form-label"><b>Duration</b></label>
+                <textarea class="form-control" name="durationInMinutes" id="durationInMinutes"
+                          placeholder="Movie duration in minutes e.g. 120 minutes"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="genreId"><b>Genre</b></label>
+                <select class="form-control" id="genreId" name="genreId">
+                    <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+                </select>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <a class="btn btn-danger w-100" th:href="@{/movies}">Cancel</a>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary w-100" type="submit">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer th:include="fragments/footerCinema :: footer"></footer>
+</body>
+</html>

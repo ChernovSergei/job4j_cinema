@@ -1,43 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/header :: header"></head>
+<head th:include="fragments/headerCinema :: header"></head>
 <body>
-<div th:replace="fragments/navigation :: navigation"></div>
+<div th:replace="fragments/navigationCinema :: navigation"></div>
 <div class="container">
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            </tbody>
-        </table>
+        <div>
+
+        </div>
+        <div>
+            This web site provide means to buy a ticket for a selected movie.
+            Proceed to "session" to view the list of movies and purchase the ticket.
+        </div>
     </div>
 </div>
-<footer th:include="fragments/footer :: footer"></footer>
-<div>Project job4j_dreamjob, implemented per Job For Java course</div>
+<footer th:include="fragments/footerCinema :: footer"></footer>
+<div>Project Cinema, implemented per Job For Java course</div>
 </body>
 </html>

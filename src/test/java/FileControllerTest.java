@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import ru.job4j.dreamjob.controller.FileController;
-import ru.job4j.dreamjob.dto.FileDto;
-import ru.job4j.dreamjob.service.FileService;
+import ru.job4j.cinema.controller.FileController;
+import ru.job4j.cinema.dto.FileDto;
+import ru.job4j.cinema.service.FileService;
 
 public class FileControllerTest {
 

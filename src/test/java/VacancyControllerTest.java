@@ -14,12 +14,12 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.web.multipart.MultipartFile;
 
-import ru.job4j.dreamjob.controller.VacancyController;
-import ru.job4j.dreamjob.dto.FileDto;
-import ru.job4j.dreamjob.model.City;
-import ru.job4j.dreamjob.model.Vacancy;
-import ru.job4j.dreamjob.service.CityService;
-import ru.job4j.dreamjob.service.VacancyService;
+import ru.job4j.cinema.controller.VacancyController;
+import ru.job4j.cinema.dto.FileDto;
+import ru.job4j.cinema.model.City;
+import ru.job4j.cinema.model.Vacancy;
+import ru.job4j.cinema.service.CityService;
+import ru.job4j.cinema.service.VacancyService;
 
 public class VacancyControllerTest {
 

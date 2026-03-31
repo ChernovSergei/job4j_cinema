@@ -14,15 +14,15 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.web.multipart.MultipartFile;
 
-import ru.job4j.dreamjob.controller.CandidateController;
-import ru.job4j.dreamjob.controller.CandidateController;
-import ru.job4j.dreamjob.dto.FileDto;
-import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.City;
-import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.service.CandidateService;
-import ru.job4j.dreamjob.service.CityService;
-import ru.job4j.dreamjob.service.CandidateService;
+import ru.job4j.cinema.controller.CandidateController;
+import ru.job4j.cinema.controller.CandidateController;
+import ru.job4j.cinema.dto.FileDto;
+import ru.job4j.cinema.model.Candidate;
+import ru.job4j.cinema.model.City;
+import ru.job4j.cinema.model.Candidate;
+import ru.job4j.cinema.service.CandidateService;
+import ru.job4j.cinema.service.CityService;
+import ru.job4j.cinema.service.CandidateService;
 
 public class CandidateControllerTest {
 

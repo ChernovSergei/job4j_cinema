@@ -3,7 +3,7 @@ package ru.job4j.cinema.model;
 import java.util.Map;
 import java.util.Objects;
 
-public class Film {
+public class Movie {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
             "id", "id",
@@ -13,7 +13,7 @@ public class Film {
             "file_id", "fileId",
             "minimal_age", "minimalAge",
             "duration_in_minutes", "durationInMinutes",
-            "genre_id", "genreID"
+            "genre_id", "genreId"
     );
 
     private int id;
@@ -23,13 +23,13 @@ public class Film {
     private int fileId;
     private int minimalAge;
     private int durationInMinutes;
-    private int genreID;
+    private int genreId;
 
-    public Film() {
+    public Movie() {
     }
 
-    public Film(int id, String name, String description, int year,
-                int fileId, int minimalAge, int durationInMinutes, int genreID) {
+    public Movie(int id, String name, String description, int year,
+                 int fileId, int minimalAge, int durationInMinutes, int genreId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -37,7 +37,7 @@ public class Film {
         this.fileId = fileId;
         this.minimalAge = minimalAge;
         this.durationInMinutes = durationInMinutes;
-        this.genreID = genreID;
+        this.genreId = genreId;
     }
 
     public int getId() {
@@ -68,8 +68,8 @@ public class Film {
         return durationInMinutes;
     }
 
-    public int getGenreID() {
-        return genreID;
+    public int getGenreId() {
+        return genreId;
     }
 
     public void setId(int id) {
@@ -100,8 +100,8 @@ public class Film {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public void setGenreID(int genreID) {
-        this.genreID = genreID;
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 
     @Override
@@ -112,8 +112,8 @@ public class Film {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Film film = (Film) object;
-        return id == film.getId();
+        Movie movie = (Movie) object;
+        return id == movie.getId();
     }
 
     @Override

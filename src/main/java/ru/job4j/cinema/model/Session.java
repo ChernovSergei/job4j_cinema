@@ -4,11 +4,11 @@ import java.time.LocalTime;
 import java.util.Map;
 import java.util.Objects;
 
-public class FilmSession {
+public class Session {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
             "id", "id",
-            "film_id", "filmID",
+            "movie_id", "movieID",
             "hall_id", "hallID",
             "start_time", "startTime",
             "end_time", "endTime",
@@ -16,18 +16,18 @@ public class FilmSession {
     );
 
     private int id;
-    private int filmID;
+    private int movieID;
     private int hallID;
     private LocalTime startTime;
     private LocalTime endTime;
     private int price;
 
-    public FilmSession() {
+    public Session() {
     }
 
-    public FilmSession(int id, int filmID, int hallID, LocalTime startTime, LocalTime endTime, int price) {
+    public Session(int id, int movieID, int hallID, LocalTime startTime, LocalTime endTime, int price) {
         this.id = id;
-        this.filmID = filmID;
+        this.movieID = movieID;
         this.hallID = hallID;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -38,8 +38,8 @@ public class FilmSession {
         return id;
     }
 
-    public int getFilmID() {
-        return filmID;
+    public int getMovieID() {
+        return movieID;
     }
 
     public int getHallID() {
@@ -62,8 +62,8 @@ public class FilmSession {
         this.id = id;
     }
 
-    public void setFilmID(int filmID) {
-        this.filmID = filmID;
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
     }
 
     public void setHallID(int hallID) {
@@ -90,8 +90,8 @@ public class FilmSession {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        FilmSession filmSession = (FilmSession) object;
-        return id == filmSession.getId();
+        Session session = (Session) object;
+        return id == session.getId();
     }
 
     @Override
