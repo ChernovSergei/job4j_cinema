@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/headerCinema :: header"></head>
+<body>
+    <div th:replace="fragments/navigationCinema :: navigation"></div>
+    <div class="container">
+        <form class="mt-3" th:action="@{/sessions/add}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="movie"><b>Movies</b></label>
+                <select class="form-control" id="movie" name="movieId">
+                    <option th:each="movie : ${movies}" th:value="${movie.id}" th:text="${movie.name}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="hall"><b>Genre</b></label>
+                <select class="form-control" id="hall" name="hallId">
+                    <option th:each="hall : ${halls}" th:value="${hall.id}" th:text="${hall.name}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="startTime" class="form-label"><b>Start Time</b></label>
+                <input type="datetime-local" class="form-control" name="startTime" id="startTime">
+            </div>
+            <div class="mb-3">
+                <label for="endTime" class="form-label"><b>End Time</b></label>
+                <input type="datetime-local" class="form-control" name="endTime" id="endTime">
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label"><b>Ticket Price</b></label>
+                <textarea class="form-control" name="price" id="price"></textarea>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <a class="btn btn-danger w-100" th:href="@{/sessions}">Cancel</a>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary w-100" type="submit">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer th:include="fragments/footerCinema :: footer"></footer>
+</body>
+</html>

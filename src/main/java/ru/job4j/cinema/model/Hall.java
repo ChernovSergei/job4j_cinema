@@ -6,27 +6,27 @@ import java.util.Objects;
 public class Hall {
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
             "id", "id",
-            "hall", "hall",
-            "description", "description",
+            "name", "name",
             "row_count", "rowCount",
-            "place_count", "placeCount"
+            "place_count", "placeCount",
+            "description", "description"
     );
 
     private int id;
     private String name;
-    private String description;
     private int rowCount;
     private int placeCount;
+    private String description;
 
     public Hall() {
     }
 
-    public Hall(int id, String name, String description, int rowCount, int placeCount) {
+    public Hall(int id, String name, int rowCount, int placeCount, String description) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.rowCount = rowCount;
         this.placeCount = placeCount;
+        this.description = description;
     }
 
     public int getId() {

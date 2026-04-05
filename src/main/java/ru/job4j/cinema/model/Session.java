@@ -1,6 +1,6 @@
 package ru.job4j.cinema.model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -8,27 +8,27 @@ public class Session {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
             "id", "id",
-            "movie_id", "movieID",
-            "hall_id", "hallID",
+            "film_id", "movieId",
+            "halls_id", "hallId",
             "start_time", "startTime",
             "end_time", "endTime",
             "price", "price"
     );
 
     private int id;
-    private int movieID;
-    private int hallID;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private int movieId;
+    private int hallId;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int price;
 
     public Session() {
     }
 
-    public Session(int id, int movieID, int hallID, LocalTime startTime, LocalTime endTime, int price) {
+    public Session(int id, int movieId, int hallId, LocalDateTime startTime, LocalDateTime endTime, int price) {
         this.id = id;
-        this.movieID = movieID;
-        this.hallID = hallID;
+        this.movieId = movieId;
+        this.hallId = hallId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.price = price;
@@ -38,19 +38,19 @@ public class Session {
         return id;
     }
 
-    public int getMovieID() {
-        return movieID;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public int getHallID() {
-        return hallID;
+    public int getHallId() {
+        return hallId;
     }
 
-    public LocalTime getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public LocalTime getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
@@ -62,19 +62,19 @@ public class Session {
         this.id = id;
     }
 
-    public void setMovieID(int movieID) {
-        this.movieID = movieID;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
-    public void setHallID(int hallID) {
-        this.hallID = hallID;
+    public void setHallId(int hallId) {
+        this.hallId = hallId;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
