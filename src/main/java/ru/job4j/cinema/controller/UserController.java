@@ -31,7 +31,7 @@ public class UserController {
             model.addAttribute("message", "The user with the same email exists");
             return "errors/404";
         }
-        return "redirect:/movies";
+        return "redirect:/sessions";
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -53,7 +53,7 @@ public class UserController {
         }
         var session = request.getSession();
         session.setAttribute("user", userOptional.get());
-        return "redirect:/movies";
+        return "redirect:/sessions";
     }
 
     @GetMapping("/logout")
