@@ -19,7 +19,7 @@ public class SimpleTicketService implements TicketService {
     }
 
     @Override
-    public Ticket buyTicket(Ticket ticket) {
+    public Optional<Ticket> buyTicket(Ticket ticket) {
         return ticketRepository.buyTicket(ticket);
     }
 

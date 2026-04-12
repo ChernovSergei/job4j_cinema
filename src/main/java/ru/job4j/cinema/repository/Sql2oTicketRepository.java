@@ -1,12 +1,16 @@
 package ru.job4j.cinema.repository;
 
 import net.jcip.annotations.ThreadSafe;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 import ru.job4j.cinema.model.Ticket;
 import java.util.Collection;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 @ThreadSafe
 public class Sql2oTicketRepository implements TicketRepository {
@@ -18,7 +22,7 @@ public class Sql2oTicketRepository implements TicketRepository {
     }
 
     @Override
-    public Ticket buyTicket(Ticket ticket) {
+    public Optional<Ticket> buyTicket(Ticket ticket) {
         try (var connection = sql2o.open()) {
             var sql = """
                     INSERT INTO tickets(session_id, row_number, place_number, user_id)
@@ -31,8 +35,23 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("userId", ticket.getUserId());
             int generatedId = query.executeUpdate().getKey(Integer.class);
             ticket.setId(generatedId);
-            return ticket;
+            return Optional.of(ticket);
+        }  catch (Sql2oException e) {
+            log.error(e.getMessage());
+            if (isUniqueViolation(e)) {
+                return Optional.empty();
+            }
+            throw new IllegalArgumentException(e);
         }
+    }
+
+    private boolean isUniqueViolation(Throwable e) {
+        for (Throwable exception = e; exception != null; exception = exception.getCause()) {
+            if (exception instanceof PSQLException psqlException && "23505".equals(psqlException.getSQLState())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

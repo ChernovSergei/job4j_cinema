@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface TicketService {
 
-    Ticket buyTicket(Ticket ticket);
+    Optional<Ticket> buyTicket(Ticket ticket);
 
     boolean reimburseTicket(int id);
 

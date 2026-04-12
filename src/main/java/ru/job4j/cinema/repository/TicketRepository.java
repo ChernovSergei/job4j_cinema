@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface TicketRepository {
-    Ticket buyTicket(Ticket ticket);
+    Optional<Ticket> buyTicket(Ticket ticket);
 
     boolean reimburseTicket(int id);
 

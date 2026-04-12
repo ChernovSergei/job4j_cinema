@@ -38,8 +38,12 @@ public class TicketController {
     @PostMapping("/buy")
     public String create(@ModelAttribute Ticket ticket, Model model) {
         try {
-            ticketService.buyTicket(ticket);
-            return "sessions/list";
+            var ticketOptional = ticketService.buyTicket(ticket);
+            if (ticketOptional.isEmpty()) {
+                model.addAttribute("message", "This place is occupied! Choose another seat.");
+                return "errors/404";
+            }
+            return "tickets/success";
         } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
             return "errors/404";
