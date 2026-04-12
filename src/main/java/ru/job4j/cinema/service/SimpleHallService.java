@@ -3,21 +3,30 @@ package ru.job4j.cinema.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Hall;
+import ru.job4j.cinema.repository.HallRepository;
 import ru.job4j.cinema.repository.Sql2oHallRepository;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @ThreadSafe
 public class SimpleHallService implements HallService {
 
-    private final Sql2oHallRepository sql2oHallRepository;
+    private final HallRepository hallRepository;
 
-    public SimpleHallService(Sql2oHallRepository sql2oHallRepository) {
-        this.sql2oHallRepository = sql2oHallRepository;
+    public SimpleHallService(HallRepository hallRepository) {
+        this.hallRepository = hallRepository;
     }
 
     @Override
     public Collection<Hall> findAll() {
-        return sql2oHallRepository.findAll();
+        return hallRepository.findAll();
     }
+
+    @Override
+    public Optional<Hall> findById(int id) {
+        return hallRepository.findById(id);
+    }
+
+
 }

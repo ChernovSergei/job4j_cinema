@@ -7,17 +7,17 @@ public class Ticket {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
             "id", "id",
-            "session_id", "sessionID",
+            "session_id", "sessionId",
             "row_number", "rowNumber",
             "place_number", "placeNumber",
-            "user_id", "userID"
+            "user_id", "userId"
     );
 
     private int id;
-    private int sessionID;
+    private int sessionId;
     private int rowNumber;
     private int placeNumber;
-    private int userID;
+    private int userId;
 
     public Ticket() {
     }
@@ -26,8 +26,8 @@ public class Ticket {
         return id;
     }
 
-    public int getSessionID() {
-        return sessionID;
+    public int getSessionId() {
+        return sessionId;
     }
 
     public int getRowNumber() {
@@ -38,16 +38,16 @@ public class Ticket {
         return placeNumber;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setSessionID(int sessionID) {
-        this.sessionID = sessionID;
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
 
     public void setRowNumber(int rowNumber) {
@@ -58,8 +58,8 @@ public class Ticket {
         this.placeNumber = placeNumber;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override

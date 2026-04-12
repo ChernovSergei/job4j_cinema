@@ -7,8 +7,11 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/">Main</a>
                 <a class="nav-item nav-link" th:href="@{/sessions}">Sessions</a>
-                <a class="nav-item nav-link" th:href="@{/movies}">Movies</a>
                 <a class="nav-item nav-link" th:href="@{/sessions/add}">Add session</a>
+                <!--
+                <a class="nav-item nav-link" th:href="@{/tickets/buy}">Buy ticket</a>
+                -->
+                <a class="nav-item nav-link" th:href="@{/movies}">Movies</a>
                 <a class="nav-item nav-link" th:href="@{/movies/add}">Add Movie</a>
             </div>
             <div class="d-fles" th:if="${user.name == 'Guest'}">

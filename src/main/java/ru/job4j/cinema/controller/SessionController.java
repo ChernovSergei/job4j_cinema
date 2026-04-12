@@ -68,11 +68,24 @@ public class SessionController {
             model.addAttribute("message", "Session wasn't found for such ID");
             return "errors/404";
         }
+        model.addAttribute("movie", movieService.findById(sessionOptional.get().getMovieId()).get());
+        model.addAttribute("hall", hallService.findById(sessionOptional.get().getHallId()).get());
+        model.addAttribute("session_movie", sessionOptional.get());
+        return "tickets/buy";
+    }
+
+    /*@GetMapping("/{id}")
+    public String getById(Model model, @PathVariable int id) {
+        var sessionOptional = sessionService.findById(id);
+        if (sessionOptional.isEmpty()) {
+            model.addAttribute("message", "Session wasn't found for such ID");
+            return "errors/404";
+        }
         model.addAttribute("movies", movieService.findAll());
         model.addAttribute("halls", hallService.findAll());
         model.addAttribute("session_movie", sessionOptional.get());
         return "sessions/one";
-    }
+    }*/
 
     @PostMapping("/update")
     public String update(@ModelAttribute Session session, Model model) {
