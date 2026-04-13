@@ -12,9 +12,9 @@ import org.springframework.ui.ConcurrentModel;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import ru.job4j.dreamjob.controller.UserController;
-import ru.job4j.dreamjob.model.User;
-import ru.job4j.dreamjob.service.UserService;
+import ru.job4j.cinema.controller.UserController;
+import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.service.UserService;
 
 public class UserControllerTest {
 
