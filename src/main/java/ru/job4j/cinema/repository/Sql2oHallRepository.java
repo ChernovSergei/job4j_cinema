@@ -37,6 +37,4 @@ public class Sql2oHallRepository implements HallRepository {
             return Optional.ofNullable(hall);
         }
     }
-
-
 }

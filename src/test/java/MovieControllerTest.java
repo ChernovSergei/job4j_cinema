@@ -34,10 +34,26 @@ public class MovieControllerTest {
     @Test
     public void whenRequestMovieListPageThenGetPageWithMovies() {
         var model = new ConcurrentModel();
-        var movie1 = new Movie(1, "test1", "desc1",
-                    1990, 1, 6, 120, 0);
-        var movie2 = new Movie(2, "test2", "desc2",
-                1991, 2, 7, 121, 1);
+        var movie1 = new Movie.Builder()
+                .id(1)
+                .name("test1")
+                .description("desc1")
+                .year(1991)
+                .fileId(1)
+                .minimalAge(6)
+                .durationInMinutes(120)
+                .genreId(0)
+                .build();
+        var movie2 = new Movie.Builder()
+                .id(2)
+                .name("test2")
+                .description("desc2")
+                .year(1992)
+                .fileId(2)
+                .minimalAge(7)
+                .durationInMinutes(121)
+                .genreId(1)
+                .build();
         var expectedMovies = List.of(movie1, movie2);
         when(movieService.findAll()).thenReturn(expectedMovies);
 
@@ -58,8 +74,20 @@ public class MovieControllerTest {
     @Test   
     public void whenPostMovieWithFileThenSameDataAndRedirectToMoviesPage() throws Exception {
         var model = new ConcurrentModel();
+        /*
         var movie = new Movie(1, "test1", "desc1",
         1990, 1, 6, 120, 0);
+         */
+        var movie = new Movie.Builder()
+                .id(1)
+                .name("test1")
+                .description("desc1")
+                .year(1991)
+                .fileId(1)
+                .minimalAge(6)
+                .durationInMinutes(120)
+                .genreId(0)
+                .build();
         var fileDto = new FileDto(fileMock.getOriginalFilename(), fileMock.getBytes());
         var movieArgumentCaptor = ArgumentCaptor.forClass(Movie.class);
         var fileDtoArgumentCaptor = ArgumentCaptor.forClass(FileDto.class);
@@ -90,8 +118,21 @@ public class MovieControllerTest {
     @Test 
     public void whenRequestMovieOneThenGetPageWithMovie() {
         var model = new ConcurrentModel();
+        /*
         var movie = new Movie(1, "test1", "desc1",
         1990, 1, 6, 120, 0);
+         */
+
+        var movie = new Movie.Builder()
+                .id(1)
+                .name("test1")
+                .description("desc1")
+                .year(1991)
+                .fileId(1)
+                .minimalAge(6)
+                .durationInMinutes(120)
+                .genreId(0)
+                .build();
         int id = 1;
         when(movieService.findById(id)).thenReturn(Optional.of(movie));
         
@@ -117,8 +158,19 @@ public class MovieControllerTest {
 
     @Test   
     public void whenUpdateMovieSuccessfullyThenGetPageWithMovie() throws Exception {
-        var movie = new Movie(1, "test1", "desc1",
-        1990, 1, 6, 120, 0);
+/*        var movie = new Movie(1, "test1", "desc1",
+        1990, 1, 6, 120, 0);*/
+
+        var movie = new Movie.Builder()
+                .id(1)
+                .name("test1")
+                .description("desc1")
+                .year(1991)
+                .fileId(1)
+                .minimalAge(6)
+                .durationInMinutes(120)
+                .genreId(0)
+                .build();
         var fileDto = new FileDto(fileMock.getOriginalFilename(), fileMock.getBytes());
         var model = new ConcurrentModel();
         var movieArgumentCaptor = ArgumentCaptor.forClass(Movie.class);
@@ -136,8 +188,20 @@ public class MovieControllerTest {
 
     @Test   
     public void whenUpdateMovieUnsuccessfullyThenErrorMessage() throws Exception {
-        var movie = new Movie(1, "test1", "desc1",
-        1990, 1, 6, 120, 0);
+
+        /*var movie = new Movie(1, "test1", "desc1",
+        1990, 1, 6, 120, 0);*/
+
+        var movie = new Movie.Builder()
+                .id(1)
+                .name("test1")
+                .description("desc1")
+                .year(1991)
+                .fileId(1)
+                .minimalAge(6)
+                .durationInMinutes(120)
+                .genreId(0)
+                .build();
         var fileDto = new FileDto(fileMock.getOriginalFilename(), fileMock.getBytes());
         var model = new ConcurrentModel();
         var movieArgumentCaptor = ArgumentCaptor.forClass(Movie.class);
@@ -157,8 +221,21 @@ public class MovieControllerTest {
 
     @Test
     public void whenUpdateMovieWithErrorThenGetErrorPageWithMessage() {
+        /*
         var movie = new Movie(1, "test1", "desc1",
         1990, 1, 6, 120, 0);
+         */
+
+        var movie = new Movie.Builder()
+                .id(1)
+                .name("test1")
+                .description("desc1")
+                .year(1991)
+                .fileId(1)
+                .minimalAge(6)
+                .durationInMinutes(120)
+                .genreId(0)
+                .build();
         var expectedException = new RuntimeException("Failed to update file");
         var model = new ConcurrentModel();
         when(movieService.update(any(), any())).thenThrow(expectedException);

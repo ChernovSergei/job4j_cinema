@@ -7,10 +7,13 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://liquibase.org/xml/ns/dbchangelog-ext
     http://liquibase.org/xml/ns/dbchangelog-ext.xsd">
-    <include file="scripts/001_ddl_create_cities_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/002_dml_insert_cities.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/001_ddl_create_genres_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/002_dml_insert_genres.sql" relativeToChangelogFile="true"/>
     <include file="scripts/003_ddl_create_files_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/004_ddl_create_vacancies_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/005_ddl_create_candidates_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/004_ddl_create_films_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/005_ddl_create_halls_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/006_ddl_create_users_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/007_dml_insert_halls.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/008_ddl_create_film_sessions_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/009_ddl_create_tickets_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

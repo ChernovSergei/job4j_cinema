@@ -45,7 +45,7 @@ public class UserControllerTest {
         var view = userController.register(user, model);
         var actualUser = userArgumentCaptor.getValue();
 
-        assertThat(view).isEqualTo("redirect:/vacancies");
+        assertThat(view).isEqualTo("redirect:/sessions");
         assertThat(actualUser).isEqualTo(user);
     }
 
@@ -85,7 +85,7 @@ public class UserControllerTest {
         String actualSessionKey = sessionKey.getValue();
         User actualUser = userCaptor.getValue();
 
-        assertThat(view).isEqualTo("redirect:/vacancies");
+        assertThat(view).isEqualTo("redirect:/sessions");
         assertThat(actualUserName).isEqualTo(user.getEmail());
         assertThat(actualUserPassword).isEqualTo(user.getPassword());
         assertThat(actualUser).isEqualTo(user);

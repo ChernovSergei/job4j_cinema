@@ -1,8 +1,15 @@
 package ru.job4j.cinema.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
 import java.util.Map;
 import java.util.Objects;
 
+@Builder
+@Getter
+@AllArgsConstructor
 public class Movie {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
@@ -28,7 +35,7 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(int id, String name, String description, int year,
+    /*public Movie(int id, String name, String description, int year,
                  int fileId, int minimalAge, int durationInMinutes, int genreId) {
         this.id = id;
         this.name = name;
@@ -38,6 +45,72 @@ public class Movie {
         this.minimalAge = minimalAge;
         this.durationInMinutes = durationInMinutes;
         this.genreId = genreId;
+    }*/
+
+    private Movie(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.description = builder.description;
+        this.year = builder.year;
+        this.fileId = builder.fileId;
+        this.minimalAge = builder.minimalAge;
+        this.durationInMinutes = builder.durationInMinutes;
+        this.genreId = builder.genreId;
+    }
+
+    public static class Builder {
+        private int id;
+        private String name;
+        private String description;
+        private int year;
+        private int fileId;
+        private int minimalAge;
+        private int durationInMinutes;
+        private int genreId;
+
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder year(int year) {
+            this.year = year;
+            return this;
+        }
+
+        public Builder fileId(int fileId) {
+            this.fileId = fileId;
+            return this;
+        }
+
+        public Builder minimalAge(int minimalAge) {
+            this.minimalAge = minimalAge;
+            return this;
+        }
+
+        public Builder durationInMinutes(int durationInMinutes) {
+            this.durationInMinutes = durationInMinutes;
+            return this;
+        }
+
+        public Builder genreId(int genreId) {
+            this.genreId = genreId;
+            return this;
+        }
+
+        public Movie build() {
+            return new Movie(this);
+        }
     }
 
     public int getId() {

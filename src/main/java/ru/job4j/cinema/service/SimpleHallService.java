@@ -27,6 +27,4 @@ public class SimpleHallService implements HallService {
     public Optional<Hall> findById(int id) {
         return hallRepository.findById(id);
     }
-
-
 }

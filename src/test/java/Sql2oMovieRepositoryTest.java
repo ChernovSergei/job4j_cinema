@@ -11,7 +11,6 @@ import ru.job4j.cinema.repository.Sql2oFileRepository;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Properties;
-
 import static java.time.LocalDateTime.now;
 import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
@@ -61,8 +60,22 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenSaveThenGetSame() {
-        var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
+        /*var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
                 1990, file.getId(), 6, 120, 0));
+
+         */
+        var movie = sql2oMovieRepository.save(
+                new Movie.Builder()
+                        .id(0)
+                        .name("name")
+                        .description("description")
+                        .year(1990)
+                        .fileId(file.getId())
+                        .minimalAge(6)
+                        .durationInMinutes(120)
+                        .genreId(1)
+                        .build()
+        );
         var savedMovie = sql2oMovieRepository.findById(movie.getId()).get();
         assertThat(savedMovie).usingRecursiveComparison().isEqualTo(movie);
     }
@@ -70,12 +83,27 @@ public class Sql2oMovieRepositoryTest {
     @Test
     public void whenSaveSeveralThenGetAll() {
         var creationDate = now().truncatedTo(ChronoUnit.MINUTES);
-        var movie1 = sql2oMovieRepository.save(new Movie(0, "name1", "description1",
+        /*var movie1 = sql2oMovieRepository.save(new Movie(0, "name1", "description1",
                 1990, file.getId(), 6, 120, 0));
         var movie2 = sql2oMovieRepository.save(new Movie(0, "name2", "description2",
                 1991, file.getId(), 7, 121, 1));
         var movie3 = sql2oMovieRepository.save(new Movie(0, "name3", "description3",
                 1992, file.getId(), 8, 122, 2));
+        */
+        var movie1 = sql2oMovieRepository.save(
+                new Movie.Builder().id(0).name("name").description("description").year(1990).fileId(file.getId())
+                        .minimalAge(6).durationInMinutes(120).genreId(3).build()
+        );
+
+        var movie2 = sql2oMovieRepository.save(
+                new Movie.Builder().id(1).name("name2").description("description2").year(1992).fileId(file.getId())
+                        .minimalAge(7).durationInMinutes(122).genreId(1).build()
+        );
+
+        var movie3 = sql2oMovieRepository.save(
+                new Movie.Builder().id(2).name("name3").description("description3").year(1993).fileId(file.getId())
+                        .minimalAge(8).durationInMinutes(123).genreId(2).build()
+        );
         var result = sql2oMovieRepository.findAll();
         assertThat(result).isEqualTo(List.of(movie1, movie2, movie3));
     }
@@ -88,8 +116,20 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenDeleteThenGetEmptyOptional() {
-        var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
-                1990, file.getId(), 6, 120, 0));
+        //var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
+        //        1990, file.getId(), 6, 120, 0));
+        var movie = sql2oMovieRepository.save(
+                new Movie.Builder()
+                        .id(0)
+                        .name("name")
+                        .description("description")
+                        .year(1990)
+                        .fileId(file.getId())
+                        .minimalAge(6)
+                        .durationInMinutes(120)
+                        .genreId(1)
+                        .build()
+        );
         var isDeleted = sql2oMovieRepository.deleteById(movie.getId());
         var savedMovie = sql2oMovieRepository.findById(movie.getId());
         assertThat(isDeleted).isTrue();
@@ -104,10 +144,36 @@ public class Sql2oMovieRepositoryTest {
     @Test
     public void whenUpdateThenGetUpdated() {
         var creationDate = now().truncatedTo(ChronoUnit.MINUTES);
-        var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
+        /*var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
                 1990, file.getId(), 6, 120, 0));
         var updatedMovie = new Movie(movie.getId(), "new name", "new description",
                 1990, file.getId(), 6, 120, 0);
+
+         */
+        var movie = sql2oMovieRepository.save(
+                new Movie.Builder()
+                        .id(0)
+                        .name("name")
+                        .description("description")
+                        .year(1990)
+                        .fileId(file.getId())
+                        .minimalAge(6)
+                        .durationInMinutes(120)
+                        .genreId(1)
+                        .build()
+        );
+        var updatedMovie = sql2oMovieRepository.save(
+                new Movie.Builder()
+                        .id(0)
+                        .name("new name")
+                        .description("new description")
+                        .year(1990)
+                        .fileId(file.getId())
+                        .minimalAge(6)
+                        .durationInMinutes(120)
+                        .genreId(2)
+                        .build()
+        );
         var isUpdated = sql2oMovieRepository.update(updatedMovie);
         var savedMovie = sql2oMovieRepository.findById(updatedMovie.getId()).get();
         assertThat(isUpdated).isTrue();
@@ -116,9 +182,18 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenUpdateUnExistingMovieThenGetFalse() {
-        var creationDate = now().truncatedTo(ChronoUnit.MINUTES);
-        var movie = new Movie(0, "name", "description",
-                1990, file.getId(), 6, 120, 0);
+       /* var movie = new Movie(0, "name", "description",
+                1990, file.getId(), 6, 120, 0);*/
+        var movie = new Movie.Builder()
+                        .id(0)
+                        .name("name")
+                        .description("description")
+                        .year(1990)
+                        .fileId(file.getId())
+                        .minimalAge(6)
+                        .durationInMinutes(120)
+                        .genreId(1)
+                        .build();
         var isUpdated = sql2oMovieRepository.update(movie);
         assertThat(isUpdated).isFalse();
     }
