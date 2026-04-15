@@ -65,7 +65,7 @@ public class MovieControllerTest {
     }
 
     @Test
-    public void whenRequestMovieCreationPageThenGetPageWithCities() {
+    public void whenRequestMovieCreationPageThenGetMovieCreationPage() {
         var model = new ConcurrentModel();
         var view = movieController.getCreationPage(model);
         assertThat(view).isEqualTo("movies/add");
