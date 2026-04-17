@@ -74,10 +74,6 @@ public class MovieControllerTest {
     @Test   
     public void whenPostMovieWithFileThenSameDataAndRedirectToMoviesPage() throws Exception {
         var model = new ConcurrentModel();
-        /*
-        var movie = new Movie(1, "test1", "desc1",
-        1990, 1, 6, 120, 0);
-         */
         var movie = new Movie.Builder()
                 .id(1)
                 .name("test1")
@@ -118,11 +114,6 @@ public class MovieControllerTest {
     @Test 
     public void whenRequestMovieOneThenGetPageWithMovie() {
         var model = new ConcurrentModel();
-        /*
-        var movie = new Movie(1, "test1", "desc1",
-        1990, 1, 6, 120, 0);
-         */
-
         var movie = new Movie.Builder()
                 .id(1)
                 .name("test1")
@@ -145,7 +136,6 @@ public class MovieControllerTest {
 
     @Test 
     public void whenRequestedMovieIsMissingThrowError() {
-
         var model = new ConcurrentModel();
         int id = 1;
         
@@ -158,9 +148,6 @@ public class MovieControllerTest {
 
     @Test   
     public void whenUpdateMovieSuccessfullyThenGetPageWithMovie() throws Exception {
-/*        var movie = new Movie(1, "test1", "desc1",
-        1990, 1, 6, 120, 0);*/
-
         var movie = new Movie.Builder()
                 .id(1)
                 .name("test1")
@@ -188,10 +175,6 @@ public class MovieControllerTest {
 
     @Test   
     public void whenUpdateMovieUnsuccessfullyThenErrorMessage() throws Exception {
-
-        /*var movie = new Movie(1, "test1", "desc1",
-        1990, 1, 6, 120, 0);*/
-
         var movie = new Movie.Builder()
                 .id(1)
                 .name("test1")
@@ -221,11 +204,6 @@ public class MovieControllerTest {
 
     @Test
     public void whenUpdateMovieWithErrorThenGetErrorPageWithMessage() {
-        /*
-        var movie = new Movie(1, "test1", "desc1",
-        1990, 1, 6, 120, 0);
-         */
-
         var movie = new Movie.Builder()
                 .id(1)
                 .name("test1")

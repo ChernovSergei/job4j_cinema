@@ -7,11 +7,8 @@ import ru.job4j.cinema.model.Movie;
 import ru.job4j.cinema.model.File;
 import ru.job4j.cinema.repository.Sql2oMovieRepository;
 import ru.job4j.cinema.repository.Sql2oFileRepository;
-
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Properties;
-import static java.time.LocalDateTime.now;
 import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -60,10 +57,6 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenSaveThenGetSame() {
-        /*var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
-                1990, file.getId(), 6, 120, 0));
-
-         */
         var movie = sql2oMovieRepository.save(
                 new Movie.Builder()
                         .id(0)
@@ -82,14 +75,6 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenSaveSeveralThenGetAll() {
-        var creationDate = now().truncatedTo(ChronoUnit.MINUTES);
-        /*var movie1 = sql2oMovieRepository.save(new Movie(0, "name1", "description1",
-                1990, file.getId(), 6, 120, 0));
-        var movie2 = sql2oMovieRepository.save(new Movie(0, "name2", "description2",
-                1991, file.getId(), 7, 121, 1));
-        var movie3 = sql2oMovieRepository.save(new Movie(0, "name3", "description3",
-                1992, file.getId(), 8, 122, 2));
-        */
         var movie1 = sql2oMovieRepository.save(
                 new Movie.Builder().id(0).name("name").description("description").year(1990).fileId(file.getId())
                         .minimalAge(6).durationInMinutes(120).genreId(3).build()
@@ -116,8 +101,6 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenDeleteThenGetEmptyOptional() {
-        //var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
-        //        1990, file.getId(), 6, 120, 0));
         var movie = sql2oMovieRepository.save(
                 new Movie.Builder()
                         .id(0)
@@ -143,14 +126,7 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenUpdateThenGetUpdated() {
-        var creationDate = now().truncatedTo(ChronoUnit.MINUTES);
-        /*var movie = sql2oMovieRepository.save(new Movie(0, "name", "description",
-                1990, file.getId(), 6, 120, 0));
-        var updatedMovie = new Movie(movie.getId(), "new name", "new description",
-                1990, file.getId(), 6, 120, 0);
-
-         */
-        var movie = sql2oMovieRepository.save(
+        sql2oMovieRepository.save(
                 new Movie.Builder()
                         .id(0)
                         .name("name")
@@ -182,8 +158,6 @@ public class Sql2oMovieRepositoryTest {
 
     @Test
     public void whenUpdateUnExistingMovieThenGetFalse() {
-       /* var movie = new Movie(0, "name", "description",
-                1990, file.getId(), 6, 120, 0);*/
         var movie = new Movie.Builder()
                         .id(0)
                         .name("name")

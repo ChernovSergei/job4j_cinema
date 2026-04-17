@@ -9,11 +9,9 @@ import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.service.HallService;
 import ru.job4j.cinema.service.MovieService;
 import ru.job4j.cinema.service.SessionService;
-
 import java.util.List;
 import java.util.Optional;
 import java.time.temporal.ChronoUnit;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;

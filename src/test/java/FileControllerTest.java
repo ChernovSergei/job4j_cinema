@@ -1,16 +1,13 @@
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-
 import ru.job4j.cinema.controller.FileController;
 import ru.job4j.cinema.dto.FileDto;
 import ru.job4j.cinema.service.FileService;
