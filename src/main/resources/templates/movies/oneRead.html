@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/headerCinema :: header"></head>
+<body>
+<div th:replace="fragments/navigationCinema :: navigation"></div>
+<div class="container">
+  <form class="mt-3" th:action="@{/movies/update}" method="post" th:object="${movie}" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:field="*{id}">
+    <input type="hidden" name="fileId" th:field="*{fileId}">
+    <div class="mb-3">
+      <label class="form-label"><b>Name</b></label>
+      <p th:text="*{name}">default value</p>
+    </div>
+    <div class="col-3">
+      <div class="mb-3">
+        <img th:src="@{/files/{fileId}(fileId=*{fileId})}" class="w-100" alt="No image">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><b>Description</b></label>
+      <p th:text="*{description}">default value</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><b>Year</b></label>
+      <p th:text="*{year}">default value</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><b>Minimal Age</b></label>
+      <p th:text="*{minimalAge}">default value</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><b>A movie duration</b></label>
+      <p th:text="*{durationInMinutes}">default value</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><b>Genre</b></label>
+      <p th:text="${genreName}">default value</p>
+    </div>
+  </form>
+</div>
+<footer th:include="fragments/footerCinema :: footer"></footer>
+</body>
+</html>

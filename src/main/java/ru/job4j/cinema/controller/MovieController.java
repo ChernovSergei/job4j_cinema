@@ -53,9 +53,10 @@ public class MovieController {
             model.addAttribute("message", "Movie wasn't found for such ID");
             return "errors/404";
         }
-        model.addAttribute("genres", genreService.findAll());
+        var genreName = genreService.findById(movieOptional.get().getGenreId()).get().getName();
+        model.addAttribute("genreName", genreName);
         model.addAttribute("movie", movieOptional.get());
-        return "movies/one";
+        return "movies/oneRead";
     }
 
     @PostMapping("/update")
