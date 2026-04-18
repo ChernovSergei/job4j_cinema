@@ -20,38 +20,9 @@ public class SimpleMovieService implements MovieService {
         this.fileService = fileService;
     }
 
-    @Override
-    public Movie save(Movie movie, FileDto resume) {
-        saveNewFile(movie, resume);
-        return movieRepository.save(movie);
-    }
-
     private void saveNewFile(Movie movie, FileDto resume) {
         var file = fileService.save(resume);
         movie.setFileId(file.getId());
-    }
-
-    @Override
-    public boolean deleteById(int id) {
-        var fileOptional = findById(id);
-        boolean result = movieRepository.deleteById(id);
-        if (fileOptional.isPresent()) {
-            fileService.deleteById(fileOptional.get().getFileId());
-        }
-        return result;
-    }
-
-    @Override
-    public boolean update(Movie movie, FileDto resume) {
-        var isNewFileEmpty = resume.getContent().length == 0;
-        if (isNewFileEmpty) {
-            return movieRepository.update(movie);
-        }
-        var oldFileId = movie.getFileId();
-        saveNewFile(movie, resume);
-        var isUpdated = movieRepository.update(movie);
-        fileService.deleteById(oldFileId);
-        return isUpdated;
     }
 
     @Override

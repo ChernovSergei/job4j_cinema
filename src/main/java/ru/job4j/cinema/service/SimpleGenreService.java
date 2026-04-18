@@ -3,10 +3,7 @@ package ru.job4j.cinema.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Genre;
-import ru.job4j.cinema.model.Movie;
 import ru.job4j.cinema.repository.GenreRepository;
-
-import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -17,11 +14,6 @@ public class SimpleGenreService implements GenreService {
 
     public SimpleGenreService(GenreRepository sql2oGenreRepository) {
         this.genreRepository = sql2oGenreRepository;
-    }
-
-    @Override
-    public Collection<Genre> findAll() {
-        return genreRepository.findAll();
     }
 
     @Override

@@ -1,16 +1,14 @@
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cinema.controller.MovieController;
-import ru.job4j.cinema.dto.FileDto;
+import ru.job4j.cinema.model.Genre;
 import ru.job4j.cinema.model.Movie;
 import ru.job4j.cinema.service.GenreService;
 import ru.job4j.cinema.service.MovieService;
@@ -64,55 +62,9 @@ public class MovieControllerTest {
         assertThat(actualMovies).isEqualTo(expectedMovies);
     }
 
-    @Test
-    public void whenRequestMovieCreationPageThenGetMovieCreationPage() {
-        var model = new ConcurrentModel();
-        var view = movieController.getCreationPage(model);
-        assertThat(view).isEqualTo("movies/add");
-    }
-
-    @Test   
-    public void whenPostMovieWithFileThenSameDataAndRedirectToMoviesPage() throws Exception {
-        var model = new ConcurrentModel();
-        var movie = new Movie.Builder()
-                .id(1)
-                .name("test1")
-                .description("desc1")
-                .year(1991)
-                .fileId(1)
-                .minimalAge(6)
-                .durationInMinutes(120)
-                .genreId(0)
-                .build();
-        var fileDto = new FileDto(fileMock.getOriginalFilename(), fileMock.getBytes());
-        var movieArgumentCaptor = ArgumentCaptor.forClass(Movie.class);
-        var fileDtoArgumentCaptor = ArgumentCaptor.forClass(FileDto.class);
-        when(movieService.save(movieArgumentCaptor.capture(), fileDtoArgumentCaptor.capture())).thenReturn(movie);
-
-        var view = movieController.create(movie, fileMock, model);
-        var actualMovie = movieArgumentCaptor.getValue();
-        var actualFileDto = fileDtoArgumentCaptor.getValue();
-
-        assertThat(view).isEqualTo("redirect:/movies");
-        assertThat(actualMovie).isEqualTo(movie);
-        assertThat(fileDto).usingRecursiveComparison().isEqualTo(actualFileDto);
-    }
-
-    @Test
-    public void whenSomeExceptionThrownThenGetErrorPageWithMessage() {
-        var expectedException = new RuntimeException("Failed to write file");
-        when(movieService.save(any(), any())).thenThrow(expectedException);
-
-        var model = new ConcurrentModel();
-        var view = movieController.create(new Movie(), fileMock, model);
-        var actualExceptionMessage = model.getAttribute("message");
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(actualExceptionMessage).isEqualTo(expectedException.getMessage());
-    }
-
     @Test 
     public void whenRequestMovieOneThenGetPageWithMovie() {
+        var genre = new Genre(1, "comedy");
         var model = new ConcurrentModel();
         var movie = new Movie.Builder()
                 .id(1)
@@ -122,16 +74,19 @@ public class MovieControllerTest {
                 .fileId(1)
                 .minimalAge(6)
                 .durationInMinutes(120)
-                .genreId(0)
+                .genreId(1)
                 .build();
         int id = 1;
         when(movieService.findById(id)).thenReturn(Optional.of(movie));
-        
+        when(genreService.findById(movie.getGenreId())).thenReturn(Optional.of(genre));
+
         var view = movieController.getById(model, id);
         var actualMovie = model.get("movie");
+        var actualGenreName = model.get("genreName");
 
-        assertThat(view).isEqualTo("movies/one");
+        assertThat(view).isEqualTo("movies/oneRead");
         assertThat(actualMovie).isEqualTo(movie);
+        assertThat(actualGenreName).isEqualTo(genre.getName());
     }
 
     @Test 
@@ -144,108 +99,5 @@ public class MovieControllerTest {
 
         assertThat(view).isEqualTo("errors/404");
         assertThat(errorMessage).isEqualTo("Movie wasn't found for such ID");
-    }
-
-    @Test   
-    public void whenUpdateMovieSuccessfullyThenGetPageWithMovie() throws Exception {
-        var movie = new Movie.Builder()
-                .id(1)
-                .name("test1")
-                .description("desc1")
-                .year(1991)
-                .fileId(1)
-                .minimalAge(6)
-                .durationInMinutes(120)
-                .genreId(0)
-                .build();
-        var fileDto = new FileDto(fileMock.getOriginalFilename(), fileMock.getBytes());
-        var model = new ConcurrentModel();
-        var movieArgumentCaptor = ArgumentCaptor.forClass(Movie.class);
-        var fileDtoArgumentCaptor = ArgumentCaptor.forClass(FileDto.class);
-        when(movieService.update(movieArgumentCaptor.capture(), fileDtoArgumentCaptor.capture())).thenReturn(true);
-
-        var view = movieController.update(movie, fileMock, model);
-        var actualMovie = movieArgumentCaptor.getValue();
-        var actualFileDto = fileDtoArgumentCaptor.getValue();
-
-        assertThat(view).isEqualTo("redirect:/movies");
-        assertThat(actualMovie).isEqualTo(movie);
-        assertThat(fileDto).usingRecursiveComparison().isEqualTo(actualFileDto);
-    }
-
-    @Test   
-    public void whenUpdateMovieUnsuccessfullyThenErrorMessage() throws Exception {
-        var movie = new Movie.Builder()
-                .id(1)
-                .name("test1")
-                .description("desc1")
-                .year(1991)
-                .fileId(1)
-                .minimalAge(6)
-                .durationInMinutes(120)
-                .genreId(0)
-                .build();
-        var fileDto = new FileDto(fileMock.getOriginalFilename(), fileMock.getBytes());
-        var model = new ConcurrentModel();
-        var movieArgumentCaptor = ArgumentCaptor.forClass(Movie.class);
-        var fileDtoArgumentCaptor = ArgumentCaptor.forClass(FileDto.class);
-        when(movieService.update(movieArgumentCaptor.capture(), fileDtoArgumentCaptor.capture())).thenReturn(false);
-
-        var view = movieController.update(movie, fileMock, model);
-        var actualMovie = movieArgumentCaptor.getValue();
-        var actualFileDto = fileDtoArgumentCaptor.getValue();
-        var errorMessage = "Movie wasn't found for such ID";
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(actualMovie).isEqualTo(movie);
-        assertThat(fileDto).usingRecursiveComparison().isEqualTo(actualFileDto);
-        assertThat(errorMessage).isEqualTo(model.getAttribute("message"));
-    }
-
-    @Test
-    public void whenUpdateMovieWithErrorThenGetErrorPageWithMessage() {
-        var movie = new Movie.Builder()
-                .id(1)
-                .name("test1")
-                .description("desc1")
-                .year(1991)
-                .fileId(1)
-                .minimalAge(6)
-                .durationInMinutes(120)
-                .genreId(0)
-                .build();
-        var expectedException = new RuntimeException("Failed to update file");
-        var model = new ConcurrentModel();
-        when(movieService.update(any(), any())).thenThrow(expectedException);
-
-        var view = movieController.update(movie, fileMock, model);
-        var actualExceptionMessage = model.getAttribute("message");
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(actualExceptionMessage).isEqualTo(expectedException.getMessage());
-    }
-
-    @Test
-    public void whenDeleteMovieThenReturnMoviesPage() throws Exception {
-        var model = new ConcurrentModel();
-        int id = 1;
-        when(movieService.deleteById(id)).thenReturn(true);
-
-        var view = movieController.delete(model, id);
-
-        assertThat(view).isEqualTo("redirect:/movies");
-    }
-
-    @Test
-    public void whenDeleteMovieUnsuccessfulyThenGetErrors() throws Exception {
-        var model = new ConcurrentModel();
-        int id = 1;
-        var errorMessage = "Movie wasn't found for such ID";
-        when(movieService.deleteById(id)).thenReturn(false);
-
-        var view = movieController.delete(model, id);
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(errorMessage).isEqualTo(model.getAttribute("message"));
     }
 }

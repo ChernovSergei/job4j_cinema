@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.time.temporal.ChronoUnit;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static java.time.LocalDateTime.now;
@@ -58,36 +57,6 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void whenPostSessionWithFileThenSameDataAndRedirectToSessionsPage() throws Exception {
-        var model = new ConcurrentModel();
-        var startTime = now().truncatedTo(ChronoUnit.MINUTES);
-        var endTime = now().truncatedTo(ChronoUnit.MINUTES).plusMinutes(120);
-        var session = new Session(0, 0, 0, startTime, endTime, 1500);
-
-        var sessionArgumentCaptor = ArgumentCaptor.forClass(Session.class);
-        when(sessionService.save(sessionArgumentCaptor.capture())).thenReturn(session);
-
-        var view = sessionController.create(session, model);
-        var actualSession = sessionArgumentCaptor.getValue();
-
-        assertThat(view).isEqualTo("redirect:/sessions");
-        assertThat(actualSession).isEqualTo(session);
-    }
-
-    @Test
-    public void whenSomeExceptionThrownThenGetErrorPageWithMessage() {
-        var expectedException = new RuntimeException("Failed to write file");
-        when(sessionService.save(any())).thenThrow(expectedException);
-
-        var model = new ConcurrentModel();
-        var view = sessionController.create(new Session(), model);
-        var actualExceptionMessage = model.getAttribute("message");
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(actualExceptionMessage).isEqualTo(expectedException.getMessage());
-    }
-
-    @Test
     public void whenRequestSessionOneThenGetPageWithSession() {
         var model = new ConcurrentModel();
         Hall hall  = new Hall(1, "VIP", 100, 100, "VIP");
@@ -119,82 +88,5 @@ public class SessionControllerTest {
 
         assertThat(view).isEqualTo("errors/404");
         assertThat(errorMessage).isEqualTo("Session wasn't found for such ID");
-    }
-
-    @Test
-    public void whenUpdateSessionSuccessfullyThenGetPageWithSession() throws Exception {
-        var startTime = now().truncatedTo(ChronoUnit.MINUTES);
-        var endTime = now().truncatedTo(ChronoUnit.MINUTES).plusMinutes(120);
-        var session = new Session(0, 0, 0, startTime, endTime, 1500);
-
-        var model = new ConcurrentModel();
-        var sessionArgumentCaptor = ArgumentCaptor.forClass(Session.class);
-        when(sessionService.update(sessionArgumentCaptor.capture())).thenReturn(true);
-
-        var view = sessionController.update(session, model);
-        var actualSession = sessionArgumentCaptor.getValue();
-
-        assertThat(view).isEqualTo("redirect:/sessions");
-        assertThat(actualSession).isEqualTo(session);
-    }
-
-    @Test
-    public void whenUpdateSessionUnsuccessfullyThenErrorMessage() throws Exception {
-        var startTime = now().truncatedTo(ChronoUnit.MINUTES);
-        var endTime = now().truncatedTo(ChronoUnit.MINUTES).plusMinutes(120);
-        var session = new Session(0, 0, 0, startTime, endTime, 1500);
-
-        var model = new ConcurrentModel();
-        var sessionArgumentCaptor = ArgumentCaptor.forClass(Session.class);
-        when(sessionService.update(sessionArgumentCaptor.capture())).thenReturn(false);
-
-        var view = sessionController.update(session, model);
-        var actualSession = sessionArgumentCaptor.getValue();
-        var errorMessage = "Session wasn't found for such ID";
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(actualSession).isEqualTo(session);
-        assertThat(errorMessage).isEqualTo(model.getAttribute("message"));
-    }
-
-    @Test
-    public void whenUpdateSessionWithErrorThenGetErrorPageWithMessage() {
-        var startTime = now().truncatedTo(ChronoUnit.MINUTES);
-        var endTime = now().truncatedTo(ChronoUnit.MINUTES).plusMinutes(120);
-        var session = new Session(0, 0, 0, startTime, endTime, 1500);
-
-        var expectedException = new RuntimeException("Failed to update session");
-        var model = new ConcurrentModel();
-        when(sessionService.update(any())).thenThrow(expectedException);
-
-        var view = sessionController.update(session, model);
-        var actualExceptionMessage = model.getAttribute("message");
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(actualExceptionMessage).isEqualTo(expectedException.getMessage());
-    }
-
-    @Test
-    public void whenDeleteSessionThenReturnSessionsPage() throws Exception {
-        var model = new ConcurrentModel();
-        int id = 1;
-        when(sessionService.deleteById(id)).thenReturn(true);
-
-        var view = sessionController.delete(model, id);
-
-        assertThat(view).isEqualTo("redirect:/sessions");
-    }
-
-    @Test
-    public void whenDeleteSessionUnsuccessfulyThenGetErrors() throws Exception {
-        var model = new ConcurrentModel();
-        int id = 1;
-        var errorMessage = "Session wasn't found for such ID";
-        when(sessionService.deleteById(id)).thenReturn(false);
-
-        var view = sessionController.delete(model, id);
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(errorMessage).isEqualTo(model.getAttribute("message"));
     }
 }

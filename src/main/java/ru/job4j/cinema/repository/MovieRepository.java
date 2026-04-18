@@ -6,12 +6,6 @@ import java.util.Optional;
 
 public interface MovieRepository {
 
-    Movie save(Movie movie);
-
-    boolean deleteById(int id);
-
-    boolean update(Movie movie);
-
     Optional<Movie> findById(int id);
 
     Collection<Movie> findAll();

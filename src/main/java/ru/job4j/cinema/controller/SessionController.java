@@ -6,11 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cinema.model.Hall;
 import ru.job4j.cinema.model.Movie;
-import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.service.HallService;
 import ru.job4j.cinema.service.MovieService;
 import ru.job4j.cinema.service.SessionService;
-
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -50,17 +48,6 @@ public class SessionController {
         return "sessions/add";
     }
 
-    @PostMapping("/add")
-    public String create(@ModelAttribute Session session, Model model) {
-        try {
-            sessionService.save(session);
-            return "redirect:/sessions";
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
-            return "errors/404";
-        }
-    }
-
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id) {
         var sessionOptional = sessionService.findById(id);
@@ -72,43 +59,5 @@ public class SessionController {
         model.addAttribute("hall", hallService.findById(sessionOptional.get().getHallId()).get());
         model.addAttribute("session_movie", sessionOptional.get());
         return "tickets/buy";
-    }
-
-    /*@GetMapping("/{id}")
-    public String getById(Model model, @PathVariable int id) {
-        var sessionOptional = sessionService.findById(id);
-        if (sessionOptional.isEmpty()) {
-            model.addAttribute("message", "Session wasn't found for such ID");
-            return "errors/404";
-        }
-        model.addAttribute("movies", movieService.findAll());
-        model.addAttribute("halls", hallService.findAll());
-        model.addAttribute("session_movie", sessionOptional.get());
-        return "sessions/one";
-    }*/
-
-    @PostMapping("/update")
-    public String update(@ModelAttribute Session session, Model model) {
-        try {
-            var isUpdate = sessionService.update(session);
-            if (!isUpdate) {
-                model.addAttribute("message", "Session wasn't found for such ID");
-                return "errors/404";
-            }
-            return "redirect:/sessions";
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
-            return "errors/404";
-        }
-    }
-
-    @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable int id) {
-        var isDeleted = sessionService.deleteById(id);
-        if (!isDeleted) {
-            model.addAttribute("message", "Session wasn't found for such ID");
-            return "errors/404";
-        }
-        return "redirect:/sessions";
     }
 }

@@ -18,21 +18,6 @@ public class SimpleSessionService implements SessionService {
     }
 
     @Override
-    public Session save(Session session) {
-        return sessionRepository.save(session);
-    }
-
-    @Override
-    public boolean deleteById(int id) {
-        return sessionRepository.deleteById(id);
-    }
-
-    @Override
-    public boolean update(Session session) {
-        return sessionRepository.update(session);
-    }
-
-    @Override
     public Optional<Session> findById(int id) {
         return sessionRepository.findById(id);
     }

@@ -4,7 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Hall;
 import ru.job4j.cinema.repository.HallRepository;
-import ru.job4j.cinema.repository.Sql2oHallRepository;
 import java.util.Collection;
 import java.util.Optional;
 

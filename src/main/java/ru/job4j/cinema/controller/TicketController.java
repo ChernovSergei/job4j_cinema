@@ -23,12 +23,6 @@ public class TicketController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String getAll(Model model) {
-        model.addAttribute("tickets", ticketService.findAll());
-        return "tickets/list";
-    }
-
     @GetMapping("/buy")
     public String getCreationPage(Model model) {
         model.addAttribute("sessions", sessionService.findAll());
@@ -59,30 +53,5 @@ public class TicketController {
         }
         model.addAttribute("ticket", ticketOptional.get());
         return "tickets/one";
-    }
-
-    @PostMapping("/update")
-    public String update(@ModelAttribute Ticket ticket, Model model) {
-        try {
-            var isUpdate = ticketService.updateTicket(ticket);
-            if (!isUpdate) {
-                model.addAttribute("message", "Ticket wasn't found for such ID");
-                return "errors/404";
-            }
-            return "redirect:/tickets";
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
-            return "errors/404";
-        }
-    }
-
-    @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable int id) {
-        var isDeleted = ticketService.reimburseTicket(id);
-        if (!isDeleted) {
-            model.addAttribute("message", "Ticket wasn't found for such ID");
-            return "errors/404";
-        }
-        return "redirect:/tickets";
     }
 }
