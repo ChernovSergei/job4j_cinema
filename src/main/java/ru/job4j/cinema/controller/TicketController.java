@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cinema.model.Ticket;
-import ru.job4j.cinema.service.SessionService;
-import ru.job4j.cinema.service.TicketService;
-import ru.job4j.cinema.service.UserService;
+import ru.job4j.cinema.service.session.SessionService;
+import ru.job4j.cinema.service.ticket.TicketService;
+import ru.job4j.cinema.service.user.UserService;
 
 @Controller
 @RequestMapping("/tickets")
@@ -35,7 +35,7 @@ public class TicketController {
             var ticketOptional = ticketService.buyTicket(ticket);
             if (ticketOptional.isEmpty()) {
                 model.addAttribute("message", "This place is occupied! Choose another seat.");
-                return "errors/404";
+                return "errors/409";
             }
             return "tickets/success";
         } catch (Exception e) {

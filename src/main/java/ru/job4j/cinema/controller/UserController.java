@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.service.UserService;
+import ru.job4j.cinema.service.user.UserService;
 
 @Controller
 @RequestMapping("/users")
@@ -29,7 +29,7 @@ public class UserController {
         var savedUser = userService.save(user);
         if (savedUser.isEmpty()) {
             model.addAttribute("message", "The user with the same email exists");
-            return "errors/404";
+            return "errors/409";
         }
         return "redirect:/sessions";
     }

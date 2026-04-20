@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cinema.controller.MovieController;
 import ru.job4j.cinema.model.Genre;
 import ru.job4j.cinema.model.Movie;
-import ru.job4j.cinema.service.GenreService;
-import ru.job4j.cinema.service.MovieService;
+import ru.job4j.cinema.service.genre.GenreService;
+import ru.job4j.cinema.service.movie.MovieService;
 import org.springframework.mock.web.MockMultipartFile;
 
 public class MovieControllerTest {

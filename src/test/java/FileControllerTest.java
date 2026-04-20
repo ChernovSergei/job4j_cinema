@@ -10,7 +10,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cinema.controller.FileController;
 import ru.job4j.cinema.dto.FileDto;
-import ru.job4j.cinema.service.FileService;
+import ru.job4j.cinema.service.file.FileService;
 
 public class FileControllerTest {
 

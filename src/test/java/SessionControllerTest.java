@@ -1,14 +1,13 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.ui.ConcurrentModel;
 import ru.job4j.cinema.controller.SessionController;
 import ru.job4j.cinema.model.Hall;
 import ru.job4j.cinema.model.Movie;
 import ru.job4j.cinema.model.Session;
-import ru.job4j.cinema.service.HallService;
-import ru.job4j.cinema.service.MovieService;
-import ru.job4j.cinema.service.SessionService;
+import ru.job4j.cinema.service.hall.HallService;
+import ru.job4j.cinema.service.movie.MovieService;
+import ru.job4j.cinema.service.session.SessionService;
 import java.util.List;
 import java.util.Optional;
 import java.time.temporal.ChronoUnit;
